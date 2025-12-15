@@ -8,11 +8,12 @@ const secondaryColour = "#457B9D"
 const highlightColour = "#A8DADC"
 
 //theme
-let theme = createTheme({
+let lighttheme = createTheme({
     palette: {
         mode: "light",
         background: {
-            default: backgroundColour
+            default: backgroundColour,
+            card: backgroundColour
         },
         primary: {
             main: primaryColour
@@ -37,7 +38,7 @@ let theme = createTheme({
 
 const backgroundColourdark = "#F1FAEE"
 const primaryColourdark = "#E63946"
-const textColourdark = "rgba(0,0,0,1)"
+const textColourdark = "rgba(255, 255, 255, 1)"
 const secondaryColourdark = "#457B9D"
 const highlightColourdark = "#A8DADC"
 
@@ -45,7 +46,8 @@ let darktheme = createTheme({
     palette: {
         mode: "dark",
         background: {
-            default: backgroundColourdark
+            default: backgroundColourdark,
+            card: backgroundColourdark
         },
         primary: {
             main: primaryColourdark
@@ -69,4 +71,4 @@ let darktheme = createTheme({
 })
 
 
-export { theme, darktheme };
+export { lighttheme, darktheme };

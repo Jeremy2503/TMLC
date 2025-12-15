@@ -1,54 +1,96 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState } from "react"; //React Hook for State
 
-//MUI Imports
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import MyAppBar from "./component/MyAppBar";
+// Material
+import {
+  Box,
+  Container,
+  CssBaseline,
+  Grid,
+  ThemeProvider,
+} from "@mui/material";
+import { useTheme } from "@mui/material";
 
+
+
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+
+import MyAppBar from "@/component/common/MyAppBar";
+import { selectTheme } from "../../redux/reducesrs/themeReduces";
+import { CustomCard } from "@/styles/customComponents";
+import { darktheme, lighttheme } from "@/styles/mui/theme";
 
 export default function Home() {
-  let [visible, setVisible] = useState(false);
+const dispatch = useDispatch();
+const currentTheme = useSelector(selectTheme).activeTheme;
+
+  // const [visible, setVisible] = useState(false); // Always call hooks at the top of the function.
+  // const [currentTheme, setCurrentTheme] = useState("light");
+
+  const theme = useTheme();
 
   const movies = [
     {
-      name: "The Price of Confession",
-      img: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fabout.netflix.com%2Fnews%2Fthe-price-of-confession-december-5&psig=AOvVaw0kjgcps7_KM2o8D2eX51sr&ust=1765534069037000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCIj2oIqltZEDFQAAAAAdAAAAABAE",
-      desc: "Directed By Lee Jung-hyo",
+      name: "Avengers",
+      img: "https://imgix.ranker.com/list_img_v2/18864/1998864/original/the-best-the-avengers-quotes",
+      desc: "Directed By Joss Whedon",
     },
     {
-      name: "The abandons",
-      img: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.imdb.com%2Ftitle%2Ftt16280546%2F&psig=AOvVaw0yIPy-e80P3__WUNGDaSmD&ust=1765534225033000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKiHmNSltZEDFQAAAAAdAAAAABAE",
-      desc: "Direct By Kurt Sutter"
+      name: "Terminator",
+      img: "https://townsquare.media/site/295/files/2019/10/Terminator-Orion.jpg?w=1200&h=0&zc=1&s=0&a=t&q=89",
+      desc: "Directed By James Cameron",
+    },
+    {
+      name: "Inception",
+      img: "https://images5.alphacoders.com/112/1122037.jpg",
+      desc: "Directed By Chris Nolan",
+    },
+    {
+      name: "Jurassic Park",
+      img: "https://i.ytimg.com/vi/Rc_i5TKdmhs/maxresdefault.jpg",
+      desc: "Directed By Steven Spielberg",
+    },
+    {
+      name: "Superman",
+      img: "https://image.tmdb.org/t/p/original/3rGzY1RaVgWIP4GuOTwdHwHXSgM.jpg",
+      desc: "Directed by James Gunn",
     },
   ];
+
   return (
     <>
-
-      <Head>
-        <title>The Movie Lovers Club</title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div>
+      <ThemeProvider theme={currentTheme === "dark" ? darktheme : lighttheme}>
+        <CssBaseline />
+        <Head>
+          <title>The Movie Lovers Club | Your Favourite Movie Articles!</title>
+          <meta name="description" content="" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <MyAppBar />
-        <Button onClick={() => setVisible(!visible)}>Toggle</Button>
+        <Box height="25px" />
+        <Box>
+          <Container>
+            <Grid container spacing={2} direction="row" justifyContent="center">
+              {movies ? movies.map((movie) => (
+                <Grid size={{ xl: 4, md: 4, xs: 12 }}>
+                  <CustomCard name={movie.name} image={movie.img} description={movie.desc} />
+                </Grid>
+              )) : <></>}
+            </Grid>
+          </Container>
+          {/* <Button onClick={() => setVisible(!visible)}>Toggle</Button>
 
-        <Box height="200px" />
-        {visible ? (
-          <Box height="200px" sx={{ background: "pink", width: "500px" }} />) : (<> </>)
-        }
+            <Box height="20px" />
 
-
-
-      </div>
-
+            {visible ? (
+              <Box height="200px" sx={{ background: "pink", width: "500px" }} />
+            ) : (
+              <></>
+            )} */}
+        </Box>
+      </ThemeProvider>
     </>
   );
 }
